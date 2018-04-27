@@ -14,7 +14,7 @@
                     <tr class="table-tr">
                         <td Data-label="post:" class="align-middle text-right">
                             <div class="justify-content-end">
-                                <p>{{ $post->title }}</p>
+                                <a href={{ route('posts.show', [ 'id' => $post->id ]) }} ><p>{{ $post->title }}</p></a>
                             </div>
                         </td>
                         <td class="text-lg-right"><a href="{{ route('posts.edit', ['id' => $post->id])}}" class="btn btn-dark btn-sm">Edit</a>
