@@ -33,6 +33,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="row">
+            {{ $posts->render() }}
+        </div>
     </div>
     </div>
 @endsection

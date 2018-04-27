@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBlogPostRequest;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,7 @@ class PostsController extends Controller
 
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -21,7 +22,7 @@ class PostsController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreBlogPostRequest $request)
     {
         Post::create($request->only('title', 'text') + ['author_id' => Auth::id()]);
         session() -> flash( 'success', 'Post created successfully' );
@@ -43,7 +44,7 @@ class PostsController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(StoreBlogPostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
         $post->update($request->except('_token'));
